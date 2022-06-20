@@ -10,11 +10,37 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReadingController
 {
 
-    public String upperReader(String message) {
+    public String boulderReader(String message) {
+        String[] words = message.split(" ");
+
+        StringBuilder result = new StringBuilder(32);
+
+        for(String word : words) {
+            String modifiedWord = "";
+
+            modifiedWord += "<b>" + word.charAt(0) + "</b>";
+
+            modifiedWord += word.substring(1);
+
+            result.append(modifiedWord + " ");
+        }
+
+        return result.toString();
+    }
+
+    @CrossOrigin(origins="*")
+    @GetMapping("/hello")
+    public ReadingResponse Hello(@RequestParam String message) {
+
+        ReadingResponse readingResponse = new ReadingResponse(boulderReader(message));
+
+        return readingResponse;
+    }
+
+    /* public String upperReader(String message) {
         // stores each characters to a char array
         char[] charArray = message.toCharArray();
         boolean foundSpace = true;
-        int counter = 0;
 
         for (int i = 0; i < charArray.length; i++) {
 
@@ -24,13 +50,9 @@ public class ReadingController
                 // check space is present before the letter
                 if (foundSpace) {
 
-                    //for (i=0; i<3; i++) {
                     // change the letter into uppercase
                     charArray[i] = Character.toUpperCase(charArray[i]);
-                    if(counter < 3) {
-                        foundSpace = false;
-                    }
-                    //}
+                    foundSpace = false;
                 }
             }
 
@@ -41,17 +63,8 @@ public class ReadingController
         }
 
         // convert the char array to the string
+        // Interpolate bold HTML tags will carry through java, the javascript fetch request, and land on the HTML page with the correct format
         message = String.valueOf(charArray);
         return "<b>" + message + "</b>";
-    }
-
-    @CrossOrigin(origins="*")
-    @GetMapping("/hello")
-    public ReadingResponse Hello(@RequestParam String message) {
-        // create a string
-        //message = "everyone loves java";
-        ReadingResponse readingResponse = new ReadingResponse(upperReader(message));
-
-        return readingResponse;
-    }
+    }*/
 }
