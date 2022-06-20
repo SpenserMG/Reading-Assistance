@@ -42,7 +42,7 @@ public class ReadingController
 
         // convert the char array to the string
         message = String.valueOf(charArray);
-        return "Message: " + message;
+        return "<b>" + message + "</b>";
     }
 
     @CrossOrigin(origins="*")
