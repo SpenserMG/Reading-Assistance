@@ -6,21 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.lang.Math.*;
+
 @RestController
 public class ReadingController
 {
-
     public String boulderReader(String message) {
         String[] words = message.split(" ");
 
-        StringBuilder result = new StringBuilder(32);
+        StringBuilder result = new StringBuilder();
 
         for(String word : words) {
             String modifiedWord = "";
 
-            modifiedWord += "<b>" + word.charAt(0) + "</b>";
+            Integer wordNumber = (int)Math.floor(word.length() * .6);
 
-            modifiedWord += word.substring(1);
+            for(int i = 0; i < wordNumber; i++) {
+                modifiedWord += "<b>" + word.charAt(i) + "</b>";
+            }
+
+            modifiedWord += word.substring(wordNumber);
 
             result.append(modifiedWord + " ");
         }
